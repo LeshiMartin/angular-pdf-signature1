@@ -18,6 +18,10 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
+            "allowedCommonJsDependencies": [
+              "pdfjs-dist/web/pdf_viewer",
+              "pdfjs-dist"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -97,5 +101,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
