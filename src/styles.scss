@@ -1,0 +1,45 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.flex {
+  display: flex;
+}
+
+.flex-column{
+  flex-direction: column;;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.w-100 {
+  width: 100% !important;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.position-absolute{
+  position: absolute;
+}

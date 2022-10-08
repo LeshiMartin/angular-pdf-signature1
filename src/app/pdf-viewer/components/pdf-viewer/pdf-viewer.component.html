@@ -1,0 +1,13 @@
+<div class="viewer">
+  <div
+       #containerRef
+       class="viewerContainer"
+       id="viewerContainer">
+    <div id="pdf-list" #pdfRef>
+      <div class="upload-pdf">
+
+        <iframe *ngIf="pdfFile" [src]="pdfFile" alt="pdf-file"></iframe>
+      </div>
+    </div>
+  </div>
+</div>

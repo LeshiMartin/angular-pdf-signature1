@@ -3,8 +3,12 @@ import * as pdfjsViewer from 'pdfjs-dist/web/pdf_viewer';
 import { EventBus, PDFLinkService, PDFViewer } from 'pdfjs-dist/web/pdf_viewer';
 import { environment } from '../../../environments/environment';
 import { AnnotationMode, GlobalWorkerOptions, version } from 'pdfjs-dist';
+import { PdfServiceModule } from '../pdf-services.module';
+import { InternalPdfViewer } from '../types/internal-pdf-viewer';
 
-@Injectable()
+@Injectable({
+  providedIn: PdfServiceModule,
+})
 export class PdfViewerBuilderService {
   constructor() {
     GlobalWorkerOptions.workerSrc = environment.pdfWorker(version);
@@ -15,8 +19,8 @@ export class PdfViewerBuilderService {
     linkService: PDFLinkService,
     eventBus: EventBus,
     scaleValue: PdfViewerScaleValues = 'page-width'
-  ): PDFViewer {
-    const pdfViewer = new pdfjsViewer.PDFViewer({
+  ): InternalPdfViewer {
+    const pdfViewer = new InternalPdfViewer({
       container: div,
       linkService: linkService,
       eventBus: eventBus,

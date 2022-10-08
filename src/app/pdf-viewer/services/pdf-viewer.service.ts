@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { PdfViewerBuilderService } from './pdf-viewer-builder.service';
 import { PDFViewer, PDFLinkService } from 'pdfjs-dist/web/pdf_viewer';
-import * as pdfjs from 'pdfjs-dist';
-import { TypedArray } from 'pdfjs-dist/types/src/display/api';
+import { PdfServiceModule } from '../pdf-services.module';
+import { InternalPdfViewer } from '../types/internal-pdf-viewer';
 
-@Injectable()
+@Injectable({
+  providedIn: PdfServiceModule,
+})
 export class PdfViewerService {
   constructor(private pdfViewerBuilderService: PdfViewerBuilderService) {}
 
-  getPdfViewer(div: HTMLDivElement) {
+  getPdfViewer(div: HTMLDivElement): InternalPdfViewer {
     const eventBus = this.pdfViewerBuilderService.constructEventBus();
     const linkService =
       this.pdfViewerBuilderService.constructLinkService(eventBus);
@@ -21,13 +23,6 @@ export class PdfViewerService {
       this.pdfViewerBuilderService.setViewerScale(pdfViewer, 'page-width');
     });
     return pdfViewer;
-  }
-
-  async processFile(file: File, pdfViewer: PDFViewer) {
-    const fileBuffer = await file.arrayBuffer();
-    const fileRef = await pdfjs.getDocument(fileBuffer as TypedArray).promise;
-    pdfViewer.setDocument(fileRef);
-    (pdfViewer.linkService as PDFLinkService).setDocument(fileRef);
   }
 
   subscribeOnEvent(pdfViewer: PDFViewer, event: EventBusEvents, callback: any) {

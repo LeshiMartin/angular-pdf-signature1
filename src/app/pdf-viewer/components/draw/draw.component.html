@@ -1,0 +1,17 @@
+<div mat-dialog-title>
+  <div class="flex justify-between">
+    <h4>Draw</h4>
+    <button mat-dialog-close color="primary" mat-icon-button>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+<mat-dialog-content>
+  <canvas id="drawingBoard"></canvas>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div class="flex justify-end w-100">
+    <button color="warn" mat-dialog-close mat-raised-button>Cancel</button>
+    <button color="accent" (click)="confirm()" mat-raised-button>Confirm</button>
+  </div>
+</mat-dialog-actions>

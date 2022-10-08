@@ -10,6 +10,7 @@ export const environment = {
   USE_ONLY_CSS_ZOOM: true,
   TEXT_LAYER_MODE: 0,
   RENDERER: 'canvas',
+  RECT_TOOL_SIZE: 100,
 };
 
 /*

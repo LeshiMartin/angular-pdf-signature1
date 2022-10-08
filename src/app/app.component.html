@@ -1,13 +1,55 @@
-<div class="viewer">
-  <div
-       #containerRef
-       class="viewerContainer"
-       id="viewerContainer">
-    <div id="pdf-list" #pdfRef>
-      <div class="upload-pdf">
-        <input type="file" (change)="onUpload($event)" accept=".pdf">
-        <iframe *ngIf="pdfFile" [src]="pdfFile" alt="pdf-file"></iframe>
-      </div>
-    </div>
+<div>
+
+  <mat-toolbar color="primary">
+
+    <span class="example-spacer"></span>
+    <app-draw-icon></app-draw-icon>
+  </mat-toolbar>
+  <div>
+    <mat-card *ngIf="file">
+      <mat-card-header class="flex">
+        <div *ngFor="let item of dragItems" class="position-relative" style="z-index: 2;"
+             (cdkDragMoved)="onDragging(item)"
+             (cdkDragEnded)="onDrop($event,item)"
+             cdkDrag>
+          <div *ngIf="item.isDropped">
+            <button (click)="saveItem(item)" color="primary" mat-icon-button>
+              <mat-icon>save</mat-icon>
+            </button>
+          </div>
+          <img [src]="item.metaSource" />
+        </div>
+      </mat-card-header>
+      <mat-card-content id="content">
+
+        <div class="flex position-relative flex-column" *ngIf="file">
+          <div class="flex justify-center align-center">
+            <button color="primary" [disabled]="currentPageNr === 1" (click)="prevPage()" mat-icon-button>
+              <mat-icon>chevron_left</mat-icon>
+            </button>
+            {{currentPageNr}}/{{pageCount}}
+            <button color="primary" [disabled]="currentPageNr === pageCount" (click)="nextPage()" mat-icon-button>
+              <mat-icon>chevron_right</mat-icon>
+            </button>
+            <button mat-icon-button color="accent" [disabled]="!showUndo" (click)="undo()">
+              <mat-icon>undo</mat-icon>
+            </button>
+          </div>
+          <div id="pageContainer"
+               dropzone
+               (drop)="onIframeDrop($event)"
+               class="pdfViewer singlePageView dropzone nopadding position-relative"
+               style="background-color:transparent; z-index: 1;">
+            <iframe
+
+                    class="w-100 position-relative"
+                    style="height: 90vh;  z-index: 0;" type="application/pdf"
+                    [src]="pdfFileData"></iframe>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
+  <input *ngIf="!file" type="file" (change)="onUpload($event)" accept=".pdf">
+
 </div>
